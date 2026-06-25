@@ -1,41 +1,19 @@
-# -----------------------------
-# Base Image
-# -----------------------------
 FROM node:20-alpine
 
-# Set working directory (same as your Jenkins dir)
 WORKDIR /app
 
-# -----------------------------
-# Install dependencies first (better caching)
-# -----------------------------
-COPY roho_backend_core/package*.json ./roho_backend_core/
+COPY roho_backend_repo/package*.json ./roho_backend_repo/
 
-WORKDIR /app/roho_backend_core
+WORKDIR /app/roho_backend_repo
 
 RUN npm install
 
-# -----------------------------
-# Copy full source code
-# -----------------------------
-COPY roho_backend_core/ .
+COPY roho_backend_repo/ .
 
-# -----------------------------
-# Build step (same as Jenkins npm run build)
-# -----------------------------
 RUN npm run build
 
-# -----------------------------
-# Install PM2 globally
-# -----------------------------
 RUN npm install -g pm2
 
-# -----------------------------
-# Expose backend port (change if needed)
-# -----------------------------
 EXPOSE 8081
 
-# -----------------------------
-# Start using PM2 runtime
-# -----------------------------
 CMD ["pm2-runtime", "start", "npm", "--name", "roho-be-core", "--", "start"]
