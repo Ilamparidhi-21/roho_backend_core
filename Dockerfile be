@@ -1,19 +1,26 @@
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+
+ENV NODE_OPTIONS=--max-old-space-size=2048
+
+RUN npm run build
+
+
 FROM node:20-alpine
 
 WORKDIR /app
 
-COPY roho_backend_repo/package*.json ./roho_backend_repo/
+COPY package*.json ./
+RUN npm install --omit=dev
 
-WORKDIR /app/roho_backend_repo
-
-RUN npm install
-
-COPY roho_backend_repo/ .
-
-RUN npm run build
-
-RUN npm install -g pm2
+COPY --from=builder /app/out ./out
 
 EXPOSE 8081
 
-CMD ["pm2-runtime", "start", "npm", "--name", "roho-be-core", "--", "start"]
+CMD ["node", "out/src/main.js"]
