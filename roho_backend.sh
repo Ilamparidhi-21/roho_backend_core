@@ -2,7 +2,7 @@
 
 set -e
 
-APP_NAME="roho_backend_core"
+APP_NAME="roho_backend_repo"
 REPO_URL="https://solbaacken.git.beanstalkapp.com/roho_backend_core.git"
 BRANCH="preprod"
 
@@ -54,6 +54,7 @@ docker run -d \
   --name $CONTAINER_NAME \
   -p 8081:8081 \
   --restart always \
+  --env-file $ENV_FILE \
   $IMAGE_NAME
 
 echo "=============================="
