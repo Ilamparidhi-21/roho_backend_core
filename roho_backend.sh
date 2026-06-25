@@ -52,7 +52,7 @@ docker rm $CONTAINER_NAME || true
 echo "🔹 Running container..."
 docker run -d \
   --name $CONTAINER_NAME \
-  -p 3000:3000 \
+  -p 8081:8081 \
   --restart always \
   $IMAGE_NAME
 
