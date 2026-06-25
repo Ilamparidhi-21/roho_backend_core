@@ -6,7 +6,7 @@ APP_NAME="roho_backend_core"
 REPO_URL="https://solbaacken.git.beanstalkapp.com/roho_backend_core.git"
 BRANCH="preprod"
 
-BASE_DIR="/home/ubuntu/deploy"
+BASE_DIR="/home/ubuntu/deploy1"
 REPO_DIR="$BASE_DIR/roho_backend_repo"
 
 ENV_FILE="/home/ubuntu/env-files/roho_backend.env"
